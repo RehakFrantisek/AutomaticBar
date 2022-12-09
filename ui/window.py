@@ -9,10 +9,9 @@ import db.database
 from ui.main_window import Ui_MainWindow
 from PyQt5.QtWidgets import *
 from datetime import datetime
-from PyQt5.QtCore import QTimer, QThread, QObject, pyqtSlot, QModelIndex
+from PyQt5.QtCore import QTimer, pyqtSlot, QModelIndex
 from db.database import Database
 from src.reader import Reader
-#from src.timer import Timer
 from src.empty_thread import ThreadClass
 from src.timer_thread import TimerThread
 
@@ -22,8 +21,6 @@ expired_radky = 0
 class Window(QtWidgets.QMainWindow, Ui_MainWindow, QProgressBar):
     db: Database = None
     reader: Reader = None
-    #timer: Timer = None
-
     def __init__(self):
         super(Window, self).__init__()
         self.setupUi(self)
@@ -43,19 +40,13 @@ class Window(QtWidgets.QMainWindow, Ui_MainWindow, QProgressBar):
         self.thread[3].start()
 
         self.init_db()
-        # self.print_sql_into_table()
-        # self.reader_connect()
 
         self.pushButton_Add.pressed.connect(self.add_record)
         self.tableWidget_Active.setCurrentIndex(QModelIndex())
         self.pushButton_Delete.pressed.connect(self.select_row)
         self.pushButton_Edit.pressed.connect(self.update_row)
 
-        #self.tableWidget_Active.horizontalHeader().selectionModel().selectionChanged.connect(self.cell_is_clicked)
         self.tableWidget_Active.horizontalHeader().sectionClicked.connect(self.header_sort)
-        # self.pushButton_Add.pressed.connect(
-        # lambda: db.database.add_tag(self.textLine_TagId.text(), self.textLine_TableNumber.text(),
-        # self.textLine_Drink.text()))
 
         self.load_table_data()
 
@@ -67,9 +58,6 @@ class Window(QtWidgets.QMainWindow, Ui_MainWindow, QProgressBar):
 
     def init_db(self):
         setattr(self, "db", Database())
-
-    # def reader_connect(self):
-    # setattr(self, "reader", Reader())
 
     def print_test(self):
         print('test')
@@ -89,7 +77,6 @@ class Window(QtWidgets.QMainWindow, Ui_MainWindow, QProgressBar):
         else:
             message_box = QMessageBox()
             message_box.critical(None, "ERROR", "Chybny vstup", QMessageBox.Ok)
-            #print("DIALOG WINDOW")
         self.textLine_TagId.clear()
         self.textLine_Drink.clear()
         self.textLine_TableNumber.clear()
@@ -101,7 +88,6 @@ class Window(QtWidgets.QMainWindow, Ui_MainWindow, QProgressBar):
         active_radky += 1
 
     def duplicity_check(self, TagId):
-        #print(TagId)
         with contextlib.closing(sqlite3.connect("db/tags.db")) as conn:
             with conn:
                 with contextlib.closing(conn.cursor()) as cur:
@@ -117,33 +103,18 @@ class Window(QtWidgets.QMainWindow, Ui_MainWindow, QProgressBar):
         newin_expired = self.tableWidget_Expired.model().index(index_expired.row(), 0)
         if newin_active.row() > -1:
             idtag = self.tableWidget_Active.item(newin_active.row(), 2)
-            #print(idtag.text())
             if idtag:
                 self.delete_selected_row(idtag.text(), 'active')
                 print(newin_active.row())
-            #print("active")
         if newin_expired.row() > -1:
             idtag = self.tableWidget_Expired.item(newin_expired.row(), 2)
             if idtag:
                 self.delete_selected_row(idtag.text(), 'expired')
                 print(newin_expired.row())
-            #print("expired")
         self.tableWidget_Active.setCurrentIndex(QModelIndex())
         self.tableWidget_Expired.setCurrentIndex(QModelIndex())
         self.tableWidget_Active.clearSelection()
         self.tableWidget_Expired.clearSelection()
-        #if self.tableWidget_Active.selectionModel().selectionChanged.connect(self.cell_is_clicked):
-            #print(self.tableWidget_Active.currentRow())
-        #print(self.tableWidget_Active.rowCount())
-        #print(self.tableWidget_Active.cellClicked.connect(self.cell_is_clicked))
-        #print(self.tableWidget_Active.currentRow())
-        #self.tableWidget_Active.selectionModel().selectionChanged.connect(self.cell_is_clicked)
-        #print("DELETE")
-        #print(self.tableWidget_Active.item(self.tableWidget_Active.selectionModel().selectionChanged.connect(self.cell_is_clicked), 3).text())
-        #if self.tableWidget_Active.rowCount() > 0:
-            #print("DELETE2")
-            #current_row = self.tableWidget_Active.currentRow()
-            #self.tableWidget_Active.removeRow(current_row)
 
     def delete_selected_row(self, idtag, status):
         global active_radky, expired_radky
@@ -153,8 +124,6 @@ class Window(QtWidgets.QMainWindow, Ui_MainWindow, QProgressBar):
         else:
             expired_radky -= 1
         self.test_method(False)
-        # sqlquery = "SELECT * FROM activetags"
-
 
     def update_row(self):
         global active_radky, expired_radky
@@ -166,14 +135,12 @@ class Window(QtWidgets.QMainWindow, Ui_MainWindow, QProgressBar):
             tabnum = self.tableWidget_Active.item(newin_active.row(), 0)
             drinkn = self.tableWidget_Active.item(newin_active.row(), 1)
             tagnum = self.tableWidget_Active.item(newin_active.row(), 2)
-            # print(idtag.text())
             if tagnum:
                 print(tagnum.text())
                 self.textLine_TableNumber.setText(tabnum.text())
                 self.textLine_Drink.setText(drinkn.text())
                 self.textLine_TagId.setText(tagnum.text())
             self.delete_selected_row(tagnum.text(), 'active')
-            # print("active")
         if newin_expired.row() > -1:
             tabnum = self.tableWidget_Expired.item(newin_active.row(), 0)
             drinkn = self.tableWidget_Expired.item(newin_active.row(), 1)
@@ -183,7 +150,6 @@ class Window(QtWidgets.QMainWindow, Ui_MainWindow, QProgressBar):
                 self.textLine_Drink.setText(drinkn.text())
                 self.textLine_TagId.setText(tagnum.text())
             self.delete_selected_row(tagnum.text(), 'expired')
-            # print("expired")
         self.tableWidget_Active.setCurrentIndex(QModelIndex())
         self.tableWidget_Expired.setCurrentIndex(QModelIndex())
         self.tableWidget_Active.clearSelection()
@@ -203,7 +169,6 @@ class Window(QtWidgets.QMainWindow, Ui_MainWindow, QProgressBar):
         for ix in selected.indexes():
             print('test')
             print(ix.row())
-            # return ix.row()
 
     @pyqtSlot(bool)
     def test_method(self, status):
@@ -216,7 +181,6 @@ class Window(QtWidgets.QMainWindow, Ui_MainWindow, QProgressBar):
         self.tableWidget_Active.setRowCount(active_radky)
         self.tableWidget_Expired.setRowCount(expired_radky)
         self.load_table_data()
-        #print("TEST " + idx)
 
     def load_table_data(self):
         print("test thread")
@@ -225,9 +189,6 @@ class Window(QtWidgets.QMainWindow, Ui_MainWindow, QProgressBar):
             with conn:
                 with contextlib.closing(conn.cursor()) as cur:
                     sqlquery = "SELECT * FROM activetags"
-                    # self.tableWidget_Active.setColumnCount(3)
-                    #self.tableWidget_Active.clear()
-                    #self.tableWidget_Expired.clear()
                     self.tableWidget_Active.setRowCount(active_radky)
                     self.tableWidget_Expired.setRowCount(expired_radky)
                     index_active = 0
@@ -240,7 +201,6 @@ class Window(QtWidgets.QMainWindow, Ui_MainWindow, QProgressBar):
                             self.tableWidget_Expired.setItem(index_expired, 2, QtWidgets.QTableWidgetItem(str(row[1])[-4:]))
                             index_expired += 1
                             conn.commit()
-                        # self.tableWidget_Active.setItem(index, 1, QtWidgets.QTableWidgetItem(row[1]))
                         if row[5] == 'active':
                             self.tableWidget_Active.setItem(index_active, 0, QtWidgets.QTableWidgetItem(row[3]))
                             self.tableWidget_Active.setItem(index_active, 1, QtWidgets.QTableWidgetItem(row[2]))
@@ -252,18 +212,11 @@ class Window(QtWidgets.QMainWindow, Ui_MainWindow, QProgressBar):
                                                             QtWidgets.QTableWidgetItem(str(math.floor(active_time)) + "m"))
                             index_active += 1
                             conn.commit()
-                    #self.tableWidget_Active.resizeColumnsToContents()
-                    #header = self.tableWidget_Active.horizontalHeader()
-                    #header.setSectionResizeMode(QHeaderView.ResizeToContents)
-                    #header.setSectionResizeMode(0, QHeaderView.Stretch)
 
     def header_sort(self, c):
         if c==3:
-            #print("time sort")
             self.load_table_data()
         self.tableWidget_Active.sortItems(c)
-        #print(c)
-        #print("header clicked")
 
     def time_on_table(self):
         cur = self.connect_database()
@@ -291,6 +244,3 @@ class Window(QtWidgets.QMainWindow, Ui_MainWindow, QProgressBar):
             date_time_str = dt.strftime("%d.%m.%Y %H:%M:%S")
             self.label_time.setText(date_time_str)
             self.tableWidget_Active.viewport().update()
-            #self.time_on_table()
-            #self.empty_bottle_check()
-

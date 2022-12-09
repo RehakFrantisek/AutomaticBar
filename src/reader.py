@@ -34,7 +34,6 @@ class Reader(QThread):
 
     def run(self):
         self.reader_connect()
-        #src.timer.empty_bottle_check()
 
     # filter ID do pole
     def id_tag_split(self, string):
@@ -95,29 +94,9 @@ class Reader(QThread):
         string_id = self.id_tag_split(xml_string)
         antenna = self.antenna_number(xml_string)
         date_time = datetime.now()
-        # print(len(string_id))
 
         while i < len(string_id):
-            # print(i)
-            # print(date_time)
             tag_id = string_id[i]
             antenna_num = antenna[0]
             db.database.insert_data(tag_id, date_time, antenna_num)
-            # print(tag_id)
             i += 1
-
-        # print("New record")
-        # db.database.printDataLog('SELECT * from tagslog')
-        # db.database.printDataLog('SELECT * from activetags ORDER BY id DESC LIMIT 2')
-        # for idtag in stringID:
-        # value1.append(idtag)
-        # value1.append(str(datetime))
-        # value1.append(antenna)
-        # db.database.insertData(value1[0], value1[1], value1[2])
-
-        # tmp.append(value1)
-        # print(type(tmp))
-        # print(tmp)
-        # self.save_json(value1)
-        # db.database.printData()
-        # print(NumberOfTags(xml_string))

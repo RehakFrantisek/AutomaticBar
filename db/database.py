@@ -1,17 +1,15 @@
 import sqlite3
-import datetime
 
-from PyQt5.QtCore import QThread, pyqtSignal
+from PyQt5.QtCore import pyqtSignal
 
 new_tag = pyqtSignal()
 
-class Database:
 
+class Database:
 
     def __init__(self):
         self.delete_all()
         self.create_tables()
-        # self.print_data_log('SELECT * from tagslog')
 
     def delete_all(self):
         conn = sqlite3.connect('db/tags.db')
@@ -24,7 +22,6 @@ class Database:
     # vytvori databazi "tags.db" a v ni 2 tabulky (activetags a taglog)
     def create_tables(self):
         conn = sqlite3.connect('db/tags.db')
-        # print("Opened database successfully")
         conn.execute(
             '''
             CREATE TABLE IF NOT EXISTS activetags(
@@ -54,23 +51,13 @@ class Database:
     def insert_data(self, idtag, datetimenow, antennanumber):
         conn = sqlite3.connect('db/tags.db')
         conn.execute(
-            # "INSERT INTO tagslog (idtag, datetime, antenna) VALUES ('CA20 2009 0620 0100 0000 0434', '2022-10-16 15:32:44.458608', 1)", (idtag, datetimenow, antennanumber)
             "INSERT INTO tagslog (idtag, datetime, antenna) VALUES (?, ?, ?)", (idtag, datetimenow, antennanumber)
         )
-        # self.update_table()
-
-        # conn.execute(
-        # "INSERT INTO tagslog (id, datetime, antenna) VALUES ('CA20 2009 0620 0100 0000 0434', '2022-10-16 15:32:44.458608', 1)"
-        # "INSERT INTO activetags (idtag, datetime, antenna) VALUES (?, ?, ?)", (idtag, datetimenow, antennanumber)
-        # )
         conn.commit()
-        # print(printData())
         conn.close()
-        # print("Insert complete")
 
     def print_data_log(self, sqlquery):
         conn = sqlite3.connect('db/tags.db')
-        # print("Opened succesfully")
 
         cursor = conn.execute(sqlquery)
         for row in cursor:
@@ -80,10 +67,6 @@ class Database:
             print("antenna = ", row[3])
 
         conn.close()
-        # print("Operation done")
-
-    # createDbAndTables()
-    # insertData()
 
     def insert_new_tag(self, new_idtag, new_date, table_number, drink_name):
         conn = sqlite3.connect('db/tags.db')
@@ -96,31 +79,19 @@ class Database:
         conn.close
 
 
-# printDataLog()
-
-
 def insert_data(idtag, datetimenow, antennanumber):
     conn = sqlite3.connect('db/tags.db')
     conn.execute(
-        # "INSERT INTO tagslog (idtag, datetime, antenna) VALUES ('CA20 2009 0620 0100 0000 0434', '2022-10-16 15:32:44.458608', 1)", (idtag, datetimenow, antennanumber)
         "INSERT INTO tagslog (idtag, datetime, antenna) VALUES (?, ?, ?)", (idtag, datetimenow, antennanumber)
     )
-    # conn.execute(
-    # "INSERT INTO tagslog (id, datetime, antenna) VALUES ('CA20 2009 0620 0100 0000 0434', '2022-10-16 15:32:44.458608', 1)"
-    # "INSERT INTO activetags (idtag, datetime, antenna) VALUES (?, ?, ?)", (idtag, datetimenow, antennanumber)
-    # )
     conn.commit()
-    # print(printData())
     conn.close()
     print(idtag)
     print("Insert complete")
-    # print(conn.execute("SELECT * FROM activetags"))
-    # print_data_log('SELECT * from tagslog')
 
 
 def print_data_log(sqlquery):
     conn = sqlite3.connect('db/tags.db')
-    # print("Opened succesfully")
 
     cursor = conn.execute(sqlquery)
     for row in cursor:
@@ -133,20 +104,14 @@ def print_data_log(sqlquery):
 
 def add_tag(new_idtag, table_number, drink_name):
     conn = sqlite3.connect('db/tags.db')
-    data = []
     new_id = ""
     new_date = ""
-    # test_date = conn.execute("SELECT datetime FROM tagslog t WHERE t.idtag = ?", (new_idtag,))
-    # print(test_date)
     for row in conn.execute(
-            "SELECT * FROM tagslog t WHERE t.idtag LIKE ? ORDER BY t.datetime DESC LIMIT 1", ('_________________________'+new_idtag,)):
-        #print(row[1])
+            "SELECT * FROM tagslog t WHERE t.idtag LIKE ? ORDER BY t.datetime DESC LIMIT 1",
+            ('_________________________' + new_idtag,)):
         new_id = row[1]
-        #print(row[2])
         new_date = row[2]
-    # if conn.execute("SELECT EXISTS(SELECT 1 FROM activetags a WHERE a.id_tag = new_idtag)"):
     new_drink = drink_name
-    #print('test1')
     try:
         if new_id != "":
             if new_date != "":
@@ -156,15 +121,7 @@ def add_tag(new_idtag, table_number, drink_name):
     except Exception as e:
         print(e)
 
-    # conn.execute(
-    # "INSERT into activetags (idtag, datetime, drink, table_num, status) VALUES (?, ?, ?, ?, ?)", (new_id, new_date, drink_name, table_number, "active")
-    # )
-    # actual_time = datetime.datetimenow()
-    #print('test3')
-    # print(conn.execute("SELECT * FROM activetags"))
-    # print(data)
     conn.close
-    # return data
 
 
 def insert_new_tag(new_idtag, new_date, table_number, drink_name):
@@ -174,10 +131,8 @@ def insert_new_tag(new_idtag, new_date, table_number, drink_name):
         (new_idtag, new_date, drink_name, table_number, "active")
     )
     conn.commit()
-    #new_tag.emit()
-    #cursor = conn.execute("SELECT * FROM activetags")
-    #print(cursor.fetchall())
     conn.close
+
 
 def delete_tag(idtag):
     conn = sqlite3.connect('db/tags.db')
