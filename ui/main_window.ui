@@ -1,0 +1,555 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>MainWindow</class>
+ <widget class="QMainWindow" name="MainWindow">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>1072</width>
+    <height>842</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>MainWindow</string>
+  </property>
+  <widget class="QWidget" name="centralwidget">
+   <widget class="QWidget" name="gridLayoutWidget">
+    <property name="geometry">
+     <rect>
+      <x>10</x>
+      <y>10</y>
+      <width>1055</width>
+      <height>791</height>
+     </rect>
+    </property>
+    <layout class="QGridLayout" name="gridLayout">
+     <item row="2" column="2" rowspan="20">
+      <layout class="QHBoxLayout" name="horizontalLayout">
+       <item>
+        <layout class="QVBoxLayout" name="verticalLayout_2"/>
+       </item>
+       <item>
+        <widget class="QTableWidget" name="tableWidget_Active">
+         <property name="minimumSize">
+          <size>
+           <width>450</width>
+           <height>0</height>
+          </size>
+         </property>
+         <property name="styleSheet">
+          <string notr="true">QHeaderView::section {
+	background:rgb(58, 58, 58);
+	font-size: 13px;
+	font-weight: bold;
+	color: rgb(240, 240, 240);
+}</string>
+         </property>
+         <property name="selectionMode">
+          <enum>QAbstractItemView::SingleSelection</enum>
+         </property>
+         <property name="columnCount">
+          <number>4</number>
+         </property>
+         <attribute name="horizontalHeaderCascadingSectionResizes">
+          <bool>false</bool>
+         </attribute>
+         <attribute name="horizontalHeaderDefaultSectionSize">
+          <number>112</number>
+         </attribute>
+         <attribute name="horizontalHeaderHighlightSections">
+          <bool>false</bool>
+         </attribute>
+         <attribute name="horizontalHeaderMinimumSectionSize">
+          <number>50</number>
+         </attribute>
+         <attribute name="verticalHeaderVisible">
+          <bool>false</bool>
+         </attribute>
+         <column>
+          <property name="text">
+           <string>č. stolu</string>
+          </property>
+         </column>
+         <column>
+          <property name="text">
+           <string>nápoj</string>
+          </property>
+         </column>
+         <column>
+          <property name="text">
+           <string>č. tácku</string>
+          </property>
+         </column>
+         <column>
+          <property name="text">
+           <string>čas</string>
+          </property>
+         </column>
+        </widget>
+       </item>
+       <item>
+        <spacer name="horizontalSpacer_2">
+         <property name="orientation">
+          <enum>Qt::Horizontal</enum>
+         </property>
+         <property name="sizeHint" stdset="0">
+          <size>
+           <width>40</width>
+           <height>20</height>
+          </size>
+         </property>
+        </spacer>
+       </item>
+       <item>
+        <spacer name="horizontalSpacer">
+         <property name="orientation">
+          <enum>Qt::Horizontal</enum>
+         </property>
+         <property name="sizeHint" stdset="0">
+          <size>
+           <width>40</width>
+           <height>20</height>
+          </size>
+         </property>
+        </spacer>
+       </item>
+       <item>
+        <widget class="QTableWidget" name="tableWidget_Expired">
+         <property name="minimumSize">
+          <size>
+           <width>326</width>
+           <height>0</height>
+          </size>
+         </property>
+         <property name="styleSheet">
+          <string notr="true">QHeaderView::section {
+	background:rgb(250, 194, 194);
+	font-size: 13px;
+	font-weight: bold;
+	color: rgb(58, 58, 58);
+}</string>
+         </property>
+         <property name="selectionMode">
+          <enum>QAbstractItemView::SingleSelection</enum>
+         </property>
+         <attribute name="horizontalHeaderDefaultSectionSize">
+          <number>108</number>
+         </attribute>
+         <attribute name="horizontalHeaderHighlightSections">
+          <bool>false</bool>
+         </attribute>
+         <attribute name="verticalHeaderVisible">
+          <bool>false</bool>
+         </attribute>
+         <column>
+          <property name="text">
+           <string>č. stolu</string>
+          </property>
+         </column>
+         <column>
+          <property name="text">
+           <string>nápoj</string>
+          </property>
+         </column>
+         <column>
+          <property name="text">
+           <string>č. tácku</string>
+          </property>
+         </column>
+        </widget>
+       </item>
+      </layout>
+     </item>
+     <item row="6" column="1">
+      <spacer name="verticalSpacer_3">
+       <property name="orientation">
+        <enum>Qt::Vertical</enum>
+       </property>
+       <property name="sizeHint" stdset="0">
+        <size>
+         <width>20</width>
+         <height>40</height>
+        </size>
+       </property>
+      </spacer>
+     </item>
+     <item row="2" column="1">
+      <spacer name="verticalSpacer">
+       <property name="orientation">
+        <enum>Qt::Vertical</enum>
+       </property>
+       <property name="sizeHint" stdset="0">
+        <size>
+         <width>20</width>
+         <height>40</height>
+        </size>
+       </property>
+      </spacer>
+     </item>
+     <item row="8" column="1">
+      <widget class="QLabel" name="label_Table">
+       <property name="font">
+        <font>
+         <family>Arial Black</family>
+         <pointsize>13</pointsize>
+        </font>
+       </property>
+       <property name="styleSheet">
+        <string notr="true">QLabel{
+	background-color: rgb(192, 206, 255);
+	border: 1px solid;
+	border-color: rgb(38, 34, 34);
+	padding: 2px;
+	padding-left: 7px;
+	border-radius: 15px;
+}</string>
+       </property>
+       <property name="text">
+        <string>Číslo stolu</string>
+       </property>
+      </widget>
+     </item>
+     <item row="5" column="1">
+      <widget class="QLineEdit" name="textLine_TagId">
+       <property name="minimumSize">
+        <size>
+         <width>0</width>
+         <height>50</height>
+        </size>
+       </property>
+       <property name="font">
+        <font>
+         <family>Arial Black</family>
+         <pointsize>20</pointsize>
+        </font>
+       </property>
+      </widget>
+     </item>
+     <item row="12" column="1">
+      <widget class="QLabel" name="label_Drink">
+       <property name="font">
+        <font>
+         <family>Arial Black</family>
+         <pointsize>13</pointsize>
+        </font>
+       </property>
+       <property name="styleSheet">
+        <string notr="true">QLabel{
+	background-color: rgb(192, 206, 255);
+	border: 1px solid;
+	border-color: rgb(38, 34, 34);
+	padding: 2px;
+	padding-left: 7px;
+	border-radius: 15px;
+}</string>
+       </property>
+       <property name="text">
+        <string>Nápoj</string>
+       </property>
+      </widget>
+     </item>
+     <item row="11" column="1">
+      <spacer name="verticalSpacer_13">
+       <property name="orientation">
+        <enum>Qt::Vertical</enum>
+       </property>
+       <property name="sizeHint" stdset="0">
+        <size>
+         <width>20</width>
+         <height>40</height>
+        </size>
+       </property>
+      </spacer>
+     </item>
+     <item row="3" column="1">
+      <widget class="QLabel" name="label_Tag">
+       <property name="font">
+        <font>
+         <family>Arial Black</family>
+         <pointsize>13</pointsize>
+        </font>
+       </property>
+       <property name="styleSheet">
+        <string notr="true">QLabel{
+	background-color: rgb(192, 206, 255);
+	border: 1px solid;
+	border-color: rgb(38, 34, 34);
+	padding: 2px;
+	padding-left: 7px;
+	border-radius: 15px;
+}</string>
+       </property>
+       <property name="text">
+        <string>Číslo tácku</string>
+       </property>
+      </widget>
+     </item>
+     <item row="1" column="1">
+      <widget class="QLabel" name="label_time">
+       <property name="font">
+        <font>
+         <family>Arial Black</family>
+         <pointsize>12</pointsize>
+        </font>
+       </property>
+       <property name="styleSheet">
+        <string notr="true">QLabel{
+	background-color: white;
+	border: 1px solid;
+	border-color: rgb(38, 34, 34);
+	padding: 1px;
+	padding-left: auto;
+	padding-right: auto;
+	border-radius: 21px;
+}</string>
+       </property>
+       <property name="frameShape">
+        <enum>QFrame::WinPanel</enum>
+       </property>
+       <property name="frameShadow">
+        <enum>QFrame::Plain</enum>
+       </property>
+       <property name="lineWidth">
+        <number>1</number>
+       </property>
+       <property name="midLineWidth">
+        <number>0</number>
+       </property>
+       <property name="text">
+        <string>Time</string>
+       </property>
+      </widget>
+     </item>
+     <item row="19" column="1">
+      <spacer name="verticalSpacer_6">
+       <property name="orientation">
+        <enum>Qt::Vertical</enum>
+       </property>
+       <property name="sizeHint" stdset="0">
+        <size>
+         <width>20</width>
+         <height>40</height>
+        </size>
+       </property>
+      </spacer>
+     </item>
+     <item row="15" column="1">
+      <spacer name="verticalSpacer_2">
+       <property name="orientation">
+        <enum>Qt::Vertical</enum>
+       </property>
+       <property name="sizeHint" stdset="0">
+        <size>
+         <width>20</width>
+         <height>40</height>
+        </size>
+       </property>
+      </spacer>
+     </item>
+     <item row="9" column="1">
+      <widget class="QLineEdit" name="textLine_TableNumber">
+       <property name="minimumSize">
+        <size>
+         <width>0</width>
+         <height>50</height>
+        </size>
+       </property>
+       <property name="font">
+        <font>
+         <family>Arial Black</family>
+         <pointsize>20</pointsize>
+        </font>
+       </property>
+       <property name="text">
+        <string/>
+       </property>
+      </widget>
+     </item>
+     <item row="16" column="1">
+      <widget class="QPushButton" name="pushButton_Add">
+       <property name="minimumSize">
+        <size>
+         <width>0</width>
+         <height>80</height>
+        </size>
+       </property>
+       <property name="font">
+        <font>
+         <pointsize>20</pointsize>
+         <weight>75</weight>
+         <bold>true</bold>
+        </font>
+       </property>
+       <property name="styleSheet">
+        <string notr="true">QPushButton {
+	background-color: rgb(5, 140, 5);
+	border: 1px solid;
+	border-color: rgb(38, 34, 34);
+	padding-top: 3px;
+	color: rgb(124, 255, 135);
+	border-radius: 10px;
+}
+QPushButton:hover {
+	background-color: rgb(124, 255, 135);
+	border: 1px solid;
+	border-color: rgb(38, 34, 34);
+	color: rgb(5, 140, 5);
+}
+QPushButton:pressed {
+	background-color: rgb(124, 255, 135);
+	color: rgb(241, 241, 241);
+}
+QPushButton:disabled{
+	background-color: rgb(182, 182, 182);
+	color:rgb(31, 31, 31);
+}</string>
+       </property>
+       <property name="text">
+        <string>Přidat</string>
+       </property>
+      </widget>
+     </item>
+     <item row="14" column="1">
+      <widget class="QLineEdit" name="textLine_Drink">
+       <property name="minimumSize">
+        <size>
+         <width>0</width>
+         <height>50</height>
+        </size>
+       </property>
+       <property name="font">
+        <font>
+         <family>Arial Black</family>
+         <pointsize>20</pointsize>
+        </font>
+       </property>
+      </widget>
+     </item>
+     <item row="1" column="2">
+      <widget class="QPushButton" name="pushButton_Delete">
+       <property name="minimumSize">
+        <size>
+         <width>130</width>
+         <height>45</height>
+        </size>
+       </property>
+       <property name="maximumSize">
+        <size>
+         <width>16777215</width>
+         <height>16777215</height>
+        </size>
+       </property>
+       <property name="font">
+        <font>
+         <pointsize>13</pointsize>
+         <weight>75</weight>
+         <bold>true</bold>
+        </font>
+       </property>
+       <property name="cursor">
+        <cursorShape>OpenHandCursor</cursorShape>
+       </property>
+       <property name="styleSheet">
+        <string notr="true">QPushButton {
+	background-color:rgb(214, 69, 69);
+	border: 1px solid;
+	padding-top: 2px;
+	color: rgb(255, 198, 198);
+	border-radius: 10px;
+}
+QPushButton:hover {
+	background-color: rgb(255, 198, 198);
+	color: rgb(214, 69, 69);
+}
+QPushButton:pressed {
+	background-color: rgb(255, 179, 179);
+	color: rgb(249, 249, 249);
+}</string>
+       </property>
+       <property name="text">
+        <string>ODSTRANIT</string>
+       </property>
+       <property name="checkable">
+        <bool>false</bool>
+       </property>
+       <property name="autoDefault">
+        <bool>false</bool>
+       </property>
+      </widget>
+     </item>
+     <item row="18" column="1">
+      <widget class="QPushButton" name="pushButton_Edit">
+       <property name="minimumSize">
+        <size>
+         <width>0</width>
+         <height>35</height>
+        </size>
+       </property>
+       <property name="font">
+        <font>
+         <pointsize>15</pointsize>
+         <weight>75</weight>
+         <bold>true</bold>
+        </font>
+       </property>
+       <property name="styleSheet">
+        <string notr="true">QPushButton {
+	background-color: rgb(240, 240, 240);
+	border: 2px solid;
+	border-color: rgb(38, 34, 34);	
+	padding-top: 1px;
+	color: rgb(43, 43, 43);
+	border-radius: 10px;
+}
+QPushButton:hover {
+	background-color: rgb(230, 230, 230);
+	border: 2px solid;
+	border-color: rgb(38, 34, 34);	
+	color: rgb(43, 43, 43);
+}
+QPushButton:pressed {
+	background-color: rgb(104, 104, 104);
+	color: rgb(240, 240, 240);
+}
+QPushButton:disabled{
+	background-color: rgb(182, 182, 182);
+	color:rgb(31, 31, 31);
+}</string>
+       </property>
+       <property name="text">
+        <string>Upravit</string>
+       </property>
+      </widget>
+     </item>
+     <item row="17" column="1">
+      <spacer name="verticalSpacer_4">
+       <property name="orientation">
+        <enum>Qt::Vertical</enum>
+       </property>
+       <property name="sizeHint" stdset="0">
+        <size>
+         <width>20</width>
+         <height>40</height>
+        </size>
+       </property>
+      </spacer>
+     </item>
+    </layout>
+   </widget>
+  </widget>
+  <widget class="QMenuBar" name="menubar">
+   <property name="geometry">
+    <rect>
+     <x>0</x>
+     <y>0</y>
+     <width>1072</width>
+     <height>21</height>
+    </rect>
+   </property>
+  </widget>
+  <widget class="QStatusBar" name="statusbar"/>
+ </widget>
+ <resources/>
+ <connections/>
+</ui>
